@@ -15,7 +15,7 @@ export default function Navbar() {
   return (
     <header className="w-full bg-white font-sans">
       {/* Top Header - Logo and Contact Info (Hidden on very small mobile) */}
-      <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div  className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Logo Section */}
         <div className="text-center md:text-left">
           <h1 className="text-2xl md:text-3xl font-extrabold text-[#003366] leading-none">

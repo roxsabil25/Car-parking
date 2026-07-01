@@ -1,55 +1,63 @@
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default function ServicesGrid({ hideTitle = false }) {
-  // ছবি Capture_2.jpg অনুযায়ী সার্ভিসের ডেটা এবং তাদের ইউনিক আইডি (slug)
-  const services = [
-    { title: "CAR PARKING SHADE", slug: "car-parking-shade", img: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=400" },
-    { title: "PARGOLA SHADE", slug: "pargola-shade", img: "https://images.unsplash.com/photo-1590674899484-d5640e854abe?q=80&w=400" },
-    { title: "ALUMINIUM PARABOLA SHADE", slug: "aluminium-parabola-shade", img: "https://images.unsplash.com/photo-1573348722427-f1d6819fdf98?q=80&w=400" },
-    { title: "VIP ARABIC MAJLIS SEATING", slug: "vip-arabic-majlis-seating", img: "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?q=80&w=400" },
-    { title: "SWIMMING POOL AREA", slug: "swimming-pool-area", img: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=400" },
-    { title: "SANDWICH PANEL SHADE", slug: "sandwich-panel-shade", img: "https://images.unsplash.com/photo-1573348722427-f1d6819fdf98?q=80&w=400" },
-    { title: "BOUNDARY WALL SHADE", slug: "boundary-wall-shade", img: "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?q=80&w=400" },
-    { title: "HOUSE PAINT", slug: "house-paint", img: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?q=80&w=400" },
-  ];
-
+function ServicesGrid({ title, services, animation }) {
   return (
-    <section className="w-full bg-gray-50 py-16 px-4">
+    <section className="py-16 bg-[#f8fafc] px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-
-
-{!hideTitle && (
-          <h2 className="text-3xl font-extrabold text-[#222222] text-center mb-10  tracking-wide">
-           Our Main Services
-
-          </h2>
-        )}
         
-        {/* ৪ কলামের রেসপন্সিভ গ্রিড (Capture_2.jpg এর মতো কার্ড ডিজাইন) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {services.map((service, index) => (
+        {/* মডার্ন হেডিং সেকশন */}
+        <div className="text-center mb-12" data-aos="fade-up">
+          <h2 className="text-3xl md:text-4xl font-black text-slate-800 tracking-tight uppercase">
+            {title}
+          </h2>
+          <div className="w-20 h-1.5 bg-[#eab308] mx-auto mt-3 rounded-full"></div>
+        </div>
+        
+        {/* মডার্ন কার্ড গ্রিড */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {services?.map((item, index) => (
             <Link 
-              to={`/services/${service.slug}`} 
-              key={index}
-              className="bg-white rounded-2xl shadow-md overflow-hidden block transition-transform duration-300 hover:-translate-y-2 group"
+              to={`/services/${item.slug}`} 
+              key={item.id || index} 
+              className="block group" // 'group' ক্লাসটি হোভার ইফেক্টের জন্য খুব দরকারি
             >
-              <div className="h-52 w-full overflow-hidden">
-                <img 
-                  src={service.img} 
-                  alt={service.title} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-5 text-center">
-                <h3 className="text-sm font-bold text-[#003366] tracking-wide uppercase group-hover:text-amber-500 transition-colors">
-                  {service.title}
-                </h3>
+              <div 
+                data-aos={animation} 
+                data-aos-delay={index * 100} 
+                className="bg-white rounded-2xl overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1)] transition-all duration-300 border border-slate-100 flex flex-col h-full"
+              >
+                {/* ইমেজ কন্টেইনার (জুম ইফেক্ট সহ) */}
+                <div className="relative overflow-hidden aspect-[4/3] bg-slate-100">
+                  <img 
+                    src={item.img} 
+                    alt={item.title} 
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 ease-out" 
+                  />
+                  {/* হোভার করলে হালকা ডার্ক ওভারলে আসবে */}
+                  <div className="absolute inset-0 bg-slate-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+
+                {/* টেক্সট ও বাটন সেকশন */}
+                <div className="p-5 flex flex-col justify-between flex-grow bg-white">
+                  <h3 className="font-extrabold text-slate-800 text-sm md:text-base leading-snug group-hover:text-[#003366] transition-colors duration-300 uppercase tracking-wide">
+                    {item.title}
+                  </h3>
+                  
+                  {/* ইউজার ফ্রেন্ডলি অ্যাকশন বাটন */}
+                  <div className="mt-4 flex items-center text-xs font-bold text-[#003366] tracking-wider uppercase gap-1 group-hover:gap-2 transition-all duration-300">
+                    <span>View Details</span>
+                    <span className="text-[#eab308] text-sm transform group-hover:translate-x-1 transition-transform">→</span>
+                  </div>
+                </div>
               </div>
             </Link>
           ))}
         </div>
-      </div>
 
+      </div>
     </section>
   );
 }
+
+export default ServicesGrid;

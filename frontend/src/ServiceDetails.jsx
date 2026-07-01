@@ -1,49 +1,75 @@
-import { useParams } from "react-router-dom";
-import ServicesGrid from "./ServicesGrid";  
+import { useParams, Link } from 'react-router-dom';
+// ১. এখানে mainServices এর সাথে shadeTypes ও ইমপোর্ট করলাম
+import { mainServices, shadeTypes } from './data'; 
+import ServicesGrid from './ServicesGrid';
 
-export default function ServiceDetails() {
-  // useParams() দিয়ে ইউআরএল এর /services/:id থেকে আইডি-টা ক্যাচ করা হয়
-  const { id } = useParams(); 
+function ServiceDetails() {
+  const { slug } = useParams(); // App.jsx এ :slug ফিক্স করার পর এখানে slug পাবেন
+  
+  // ২. দুটি ডাটার অ্যারেকে একসাথে মিশিয়ে একটি বড় অ্যারে বানালাম
+  const allData = [...mainServices, ...shadeTypes];
 
-  // উদাহরণের জন্য একটি লোকাল অবজেক্ট (ভবিষ্যতে আপনি এটি Node.js API থেকে fetch করবেন)
-  const serviceData = {
-    "car-parking-shade": {
-      title: "Car Parking Shade Solutions",
-      description: "We provide high-quality residential and commercial car parking shades across UAE. Built to block 95% of UV rays.",
-      features: ["Premium Fabrics", "10 Years Warranty", "Wind Resistant"]
-    },
-    "pargola-shade": {
-      title: "Elegant Pargola Shade Design",
-      description: "Transform your outdoor garden area with modern wooden and metal pergola setups tailored to your lifestyle.",
-      features: ["Waterproof Materials", "Custom Layouts", "LED Light Integration"]
-    }
-    // এভাবে বাকি সার্ভিসগুলোর ডেটাও এখানে বা ডাটাবেজে থাকবে...
-  };
+  // এখন allData (সব ডাটা) থেকে সঠিক কার্ডের slug-টি খুঁজে বের করছি
+  const service = allData.find(item => item.slug === slug);
 
-  // ইউআরএল অনুযায়ী ডেটা খুঁজে বের করা
-  const currentService = serviceData[id] || {
-    title: "Service Not Found",
-    description: "The service you are looking for does not exist.",
-    features: []
-  };
+  if (!service) {
+    return <div className="text-center py-20 text-xl font-bold">Service Not Found!</div>;
+  }
 
   return (
-    <section>
-        <div className="max-w-4xl mx-auto py-16 px-4">
-      {/* ইউআরএল এর নাম অনুসারে এই টাইটেল আর কনটেন্ট সম্পূর্ণ বদলে যাবে */}
-      <h1 className="text-4xl font-extrabold text-[#003366] mb-4">{currentService.title}</h1>
-      <p className="text-gray-600 text-lg leading-relaxed mb-6">{currentService.description}</p>
-      
-      {currentService.features.length > 0 && (
-        <div className="bg-amber-50 p-6 rounded-xl border border-amber-200">
-          <h3 className="font-bold text-amber-800 mb-2">Key Advantages:</h3>
-          <ul className="list-disc pl-5 space-y-1 text-gray-700">
-            {currentService.features.map((f, i) => <li key={i}>{f}</li>)}
-          </ul>
+    <div>
+      <div className="bg-gray-50 min-h-screen font-sans">
+      {/* টপ ডার্ক ব্লু ব্যানার */}
+      <div className="bg-[#002244] text-white py-12 text-center uppercase">
+        <h1 className="text-3xl md:text-4xl font-extrabold tracking-wide mb-2">{service.title}</h1>
+        <p className="text-xs text-gray-300">
+          <Link to="/" className="text-[#eab308] hover:underline">Home</Link> / {service.title}
+        </p>
+      </div>
+
+      {/* মেইন কন্টেন্ট এরিয়া */}
+      <div className="max-w-5xl mx-auto px-4 py-12">
+        {/* বড় ইমেজ কন্টেইনার */}
+        <div className="relative rounded-xl overflow-hidden shadow-lg mb-8">
+          <img src={service.img} alt={service.title} className="w-full h-[450px] object-cover" />
+          <button className="absolute top-4 right-4 bg-[#eab308] hover:bg-[#dca507] text-[#002244] font-bold text-xs px-4 py-2 uppercase tracking-wider rounded shadow-md transition-colors">
+            Request For Quote
+          </button>
         </div>
-      )}
+
+        {/* টেক্সট সেকশন */}
+        <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 space-y-6">
+          <div>
+            <h2 className="text-2xl font-extrabold text-[#002244] mb-1">{service.title}</h2>
+            {/* এখানে একটা গার্ড বা শর্ট সার্কিট দিলাম যাতে subtitle না থাকলে ক্র্যাশ না করে */}
+            <p className="text-[#003366] font-semibold text-sm md:text-base">{service.subtitle || "Premium Service Provider UAE"}</p>
+            <div className="w-full h-[1px] bg-gray-200 mt-4"></div>
+          </div>
+
+          <p className="text-gray-800 font-bold text-sm md:text-base leading-relaxed">
+            {service.shortDesc || "High-quality custom design shades for premium installations across UAE."}
+          </p>
+
+          <p className="text-gray-500 text-sm md:text-base leading-relaxed">
+            {service.longDesc || "We provide durable, climate-adaptive structures using top-grade materials."}
+          </p>
+
+          {/* নিচের হলুদ বাটন */}
+          <div className="pt-4">
+            <button className="bg-[#eab308] hover:bg-[#dca507] text-[#002244] font-extrabold text-xs md:text-sm px-6 py-3 uppercase tracking-wider rounded shadow-md transition-all">
+              Request For Quote
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    <ServicesGrid hideTitle={true} /> {/* সার্ভিস ডিটেইলস পেজে সার্ভিস গ্রিডও দেখানো হবে */}
-    </section>
+    {/* ১. এখানে মেইন সার্ভিসের ডাটা এবং সেকশন টাইটেল প্রপস হিসেবে পাঠানো হলো */}
+         <ServicesGrid services={mainServices} animation="fade-right" />
+   
+         {/* ২. এখানে অন্য ডাটা এবং আলাদা সেকশন টাইটেল প্রপস হিসেবে পাঠানো হলো */}
+         <ServicesGrid  services={shadeTypes} animation="fade-left" />
+    </div>
   );
 }
+
+export default ServiceDetails;

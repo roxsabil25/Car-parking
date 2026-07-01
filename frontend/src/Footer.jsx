@@ -38,7 +38,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="w-full bg-[#002244] text-white">
+    <footer className="w-full bg-[#002244] text-white  mt-10 font-sans">
       
       {/* ==================== 1. TOP CTA & SOCIAL BANNER ==================== */}
       <div className="w-full border-b border-amber-500/30 py-10 px-4 text-center">

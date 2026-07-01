@@ -1,4 +1,4 @@
-import React from 'react'
+
 import WhyChooseUs from './WhyChooseUs'
 
 function about() {
