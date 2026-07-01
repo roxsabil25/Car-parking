@@ -15,7 +15,7 @@ export default function Navbar() {
   return (
     <header className="w-full bg-white font-sans">
       {/* Top Header - Logo and Contact Info (Hidden on very small mobile) */}
-      <div  className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div  className="hidden lg:flex max-w-7xl mx-auto px-4 py-4 flex-col md:flex-row items-center justify-between gap-4">
         {/* Logo Section */}
         <div className="text-center md:text-left">
           <h1 className="text-2xl md:text-3xl font-extrabold text-[#003366] leading-none">
@@ -69,7 +69,14 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 flex justify-between md:justify-center items-center h-14">
           
           {/* Mobile Menu Text / Brand (Visible on mobile only) */}
-          <span className="md:hidden font-bold tracking-wide uppercase text-sm">Layali</span>
+          <div className=" md:hidden py-6 ">
+          <h1 className="text-2xl md:text-3xl font-extrabold text-white leading-none">
+            Layali Car Parking
+          </h1>
+          <p className="text-xs font-bold text-gray-500 tracking-wider uppercase mt-1">
+            Bait Al Layali Metal and Iron Works
+          </p>
+        </div>
 
           {/* Hamburger Menu Icon for Mobile */}
           <button
