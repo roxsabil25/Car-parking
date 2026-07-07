@@ -31,7 +31,7 @@ function AdminAddService() {
   // ১. ডাটাবেসের সব সার্ভিস ফেচ করার ফাংশন
   const fetchServices = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/products");
+      const res = await axios.get("https://car-parking-backend-o1oa.onrender.com/api/products");
       if (res.data.success) {
         setAllServices(res.data.data);
       }
@@ -45,7 +45,7 @@ function AdminAddService() {
 
     const loadServices = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/products");
+        const res = await axios.get("https://car-parking-backend-o1oa.onrender.com/api/products");
         if (isMounted && res.data.success) {
           setAllServices(res.data.data || []);
         }
@@ -100,7 +100,7 @@ function AdminAddService() {
 
     try {
       setLoading(true);
-      const res = await axios.post(`http://localhost:5000/api/products/add?category=${formData.category}`, data, {
+      const res = await axios.post(`https://car-parking-backend-o1oa.onrender.com/api/products/add?category=${formData.category}`, data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -124,7 +124,7 @@ function AdminAddService() {
   const handleDelete = async (id, title) => {
     if (window.confirm(`Are you sure you want to permanently delete "${title}"?\nThis will clear its database entry and delete all 9 uploaded images from server.`)) {
       try {
-        const res = await axios.delete(`http://localhost:5000/api/products/delete/${id}`);
+        const res = await axios.delete(`https://car-parking-backend-o1oa.onrender.com/api/products/delete/${id}`);
         if (res.data.success) {
           alert("🗑️ Card and server assets deleted successfully!");
           fetchServices(); // তালিকা থেকে কার্ডটি সরিয়ে ফেলার জন্য রি-ফেচ
@@ -245,7 +245,7 @@ function AdminAddService() {
                     {/* Image Thumbnail */}
                     <td className="p-4">
                       <img 
-                        src={`http://localhost:5000${item.banerImg}`} 
+                        src={`https://car-parking-backend-o1oa.onrender.com${item.banerImg}`} 
                         alt={item.title} 
                         className="w-12 h-12 object-cover rounded-xl border border-slate-100 shadow-sm"
                         onError={(e) => { e.target.src = "https://placehold.co/100x100?text=No+Img"; }}

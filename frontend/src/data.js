@@ -8,7 +8,7 @@ export let shadeTypes = [];
 const fetchLiveData = async () => {
   try {
     // আপনার ব্যাকএন্ড এপিআই ইউআরএল
-    const res = await axios.get('http://localhost:5000/api/products');
+    const res = await axios.get('https://car-parking-backend-o1oa.onrender.com/api/products');
     
     if (res.data.success) {
       const allData = res.data.data;
@@ -19,11 +19,11 @@ const fetchLiveData = async () => {
         title: item.title,
         slug: item.slug,
         // ব্যাকএন্ডের /uploads/... পাথের আগে লোকালহোস্ট ডোমেইন জুড়ে দেওয়া হচ্ছে
-        img: `http://localhost:5000${item.banerImg}`, 
+        img: `https://car-parking-backend-o1oa.onrender.com${item.banerImg}`, 
         headline: item.headline,
         description: item.description,
         category: item.category,
-        extraIMGs: item.extraIMGs.map(img => `http://localhost:5000${img}`)
+        extraIMGs: item.extraIMGs.map(img => `https://car-parking-backend-o1oa.onrender.com${img}`)
       }));
 
       // ক্যাটাগরি অনুযায়ী ফিল্টার করে গ্লোবাল ভ্যারিয়েবলে ডেটা পুশ করা
