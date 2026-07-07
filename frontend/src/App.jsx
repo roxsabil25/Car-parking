@@ -7,6 +7,7 @@ import Footer from './Footer'
 import About from './about'
 import ScrollToTop from './ScrollToTop'
 import { Service } from './Service'
+import AdminAddService from './AdminAddService'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
 
         <Route path="/about-us" element={<About />} />
         <Route path="/services" element={<Service />} />
+        <Route path="/admin/add-service" element={<AdminAddService />} />
 
       </Routes>
     </main>
