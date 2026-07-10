@@ -8,6 +8,7 @@ import About from './about'
 import ScrollToTop from './ScrollToTop'
 import { Service } from './Service'
 import AdminAddService from './AdminAddService'
+import ContactComponent from './contact'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
 
         <Route path="/about-us" element={<About />} />
         <Route path="/services" element={<Service />} />
+        <Route path="/contact-us" element={<ContactComponent />} />
         <Route path="/admin/add-service" element={<AdminAddService />} />
 
       </Routes>

@@ -53,7 +53,7 @@ export default function WhyChooseUs() {
         {/* Action Button */}
         <div className="flex justify-center">
           <Link
-            to="/quotation"
+            to="/contact-us"
             className="bg-[#b28e36] text-[#001122] text-xs md:text-sm font-bold uppercase tracking-widest px-10 py-4 rounded-full shadow-lg hover:bg-white hover:text-[#003366] transition-all duration-300"
           >
             Get Quotation Now

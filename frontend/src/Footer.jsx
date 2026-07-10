@@ -61,7 +61,7 @@ export default function Footer() {
 
             {/* Middle Quote Button */}
             <Link 
-              to="/quotation" 
+              to="/contact-us" 
               className="bg-[#b28e36] text-[#001122] font-extrabold text-xs tracking-widest uppercase px-8 py-3.5 rounded-full shadow-lg hover:bg-white hover:text-[#002244] transition-all duration-300"
             >
               Get Free Quote

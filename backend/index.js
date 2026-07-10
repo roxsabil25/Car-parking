@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
+const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const path = require('path');
@@ -203,6 +204,59 @@ app.delete("/api/products/delete/:id", async (req, res) => {
     res.status(500).json({ success: false, message: "Server error during deletion." });
   }
 });
+
+
+
+
+
+
+
+// Nodemailer Transporter সেটআপ
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER, // আপনার জিমেইল এড্রেস
+    pass: process.env.EMAIL_PASS  // গুগল থেকে জেনারেট করা ১৬ ডিজিটের App Password
+  }
+});
+
+// Contact Form API Endpoint
+app.post('/api/contact', (req, res) => {
+  const { name, email, phone, subject, message } = req.body;
+
+  // ইমেইলের বডি এবং স্ট্রাকচার
+  const mailOptions = {
+    from: email, // যে ইউজার মেসেজ পাঠিয়েছে তার ইমেইল (বা আপনার নিজের ইমেইলও দিতে পারেন)
+    to: process.env.RECEIVER_EMAIL, // যে জিমেইলে আপনি মেসেজ রিসিভ করতে চান
+    subject: `New Contact Form Submission: ${subject || 'No Subject'}`,
+    html: `
+      <h2>New Contact Message Details</h2>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Phone:</strong> ${phone}</p>
+      <p><strong>Subject:</strong> ${subject}</p>
+      <p><strong>Message:</strong><br/>${message}</p>
+    `
+  };
+
+  // ইমেইল পাঠানো
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+      return res.status(500).json({ success: false, message: 'Something went wrong!' });
+    }
+    console.log('Email sent: ' + info.response);
+    return res.status(200).json({ success: true, message: 'Message sent successfully!' });
+  });
+});
+
+
+
+
+
+
+
+
 
 
 // ৭. সার্ভার লিসেনিং

@@ -56,7 +56,7 @@ export default function Navbar() {
 
           {/* Request Button */}
           <Link
-            to="/quotation"
+            to="/contact-us"
             className="bg-[#003366] text-white text-xs font-bold uppercase tracking-wider px-6 py-3 rounded-full hover:bg-amber-500 hover:text-white transition-all duration-300 shadow-md"
           >
             Request For Quotation
