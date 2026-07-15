@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { mainServices, shadeTypes } from './data'; 
 import ServicesGrid from './ServicesGrid';
+import QuoteBtn from './QuoteBtn';
 
 function ServiceDetails() {
   const { slug } = useParams();
@@ -54,9 +55,7 @@ function ServiceDetails() {
           {/* বড় ইমেজ কন্টেইনার */}
           <div className="relative rounded-xl overflow-hidden shadow-lg mb-8">
             <img src={service.img} alt={service.title} className="w-full h-[450px] object-cover" />
-            <button className="absolute top-4 right-4 bg-[#eab308] hover:bg-[#dca507] text-[#002244] font-bold text-xs px-4 py-2 uppercase tracking-wider rounded shadow-md transition-colors">
-              Request For Quote
-            </button>
+            <QuoteBtn/>
           </div>
 
           {/* টেক্সট সেকশন */}
@@ -76,9 +75,7 @@ function ServiceDetails() {
 
             {/* নিচের হলুদ বাটন */}
             <div className="pt-2">
-              <button className="bg-[#eab308] hover:bg-[#dca507] text-[#002244] font-extrabold text-xs md:text-sm px-6 py-3 uppercase tracking-wider rounded shadow-md transition-all">
-                Request For Quote
-              </button>
+              <QuoteBtn/>
             </div>
           </div>
 
